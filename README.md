@@ -29,3 +29,12 @@ Extends standard KNN with two-layer weighted voting:
 - **Weight 1** — based on distance from test sample to each neighbor
 - **Weight 2** — based on the local density of each neighbor among other training samples
 
+## Adapting to Other Datasets
+
+All three scripts hardcode the dataset structure in two places (line 3 and line 52):
+```matlab
+x = y(:,1:8);            % assumes 8 feature columns
+iris(:,m1+1) = y(:,9);  % assumes label is in column 9
+```
+To use a different dataset, update these two lines to match your data's feature count and label column. Everything else — sample size, number of principal components, and K selection — is handled dynamically.
+
