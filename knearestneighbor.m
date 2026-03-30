@@ -39,7 +39,7 @@ disp(V)
 
 
 %% Compute the values of selected principal components
-m1 =input('Enter the number of principal components to keep:  '); % must enter 5 — the KNN function assumes exactly 5 features and label in column 6
+m1 =input('Enter the number of principal components to keep:  '); % input number of components to save
 F = zeros(n1,m1);  % initialize matrix to store principal components (each column is one component)
 for i = 1:m1
     ai = V(:,i)';   % extract the i-th eigenvector and transpose to row vector
@@ -64,8 +64,8 @@ for k=1:K_Max
         train = ~test;
         train_set = rand_iris(train, :);
         test_set = rand_iris(test, :);
-        pre_label=knn(test_set(:,1:5),train_set,k); % KNN prediction
-        accuracy(i)=sum(pre_label==test_set(:,6))/sum(test); % compute accuracy
+        pre_label=knn(test_set(:,1:m1),train_set,k); % KNN prediction
+        accuracy(i)=sum(pre_label==test_set(:,m1+1))/sum(test); % compute accuracy
     end
     acc_average=mean(accuracy); % compute mean accuracy
     acc_avg_history=[acc_avg_history acc_average]; % save accuracy for each K value
@@ -80,10 +80,10 @@ function out=knn(test_set,train_set,K)
     for i=1:n
         for j=1:m
             % compute distance
-            distance(j)=sqrt(sum((test_set(i,:)-train_set(j,1:5)).^2));
+            distance(j)=sqrt(sum((test_set(i,:)-train_set(j,1:end-1)).^2));
         end
         [~,index]=sort(distance,'ascend');
-        label=train_set(index,6); % sort by distance
+        label=train_set(index,end); % sort by distance
         out(i)=mode(label(1:K)); % take the most frequent label among K nearest neighbors
     end
     out=out';

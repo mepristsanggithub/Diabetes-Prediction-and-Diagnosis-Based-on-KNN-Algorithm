@@ -18,8 +18,6 @@ This project implements and evaluates K-Nearest Neighbor (KNN) algorithms for di
 3. **Model evaluation** — run `k15.m` with K=15 to evaluate full performance metrics via 5-fold cross-validation
 
 > When prompted `Enter the number of principal components to keep`, enter `5`. This value was manually selected by inspecting the cumulative contribution rates printed by the PCA step — the first 5 principal components were found to explain sufficient variance of the dataset.
->
-> **Note for `knearestneighbor.m`:** the KNN function hardcodes 5 features and column 6 as the label, so you **must** enter `5` when prompted, otherwise the script will error.
 
 ## Algorithms
 
